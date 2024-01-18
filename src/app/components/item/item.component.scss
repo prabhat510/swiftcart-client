@@ -1,0 +1,9 @@
+.product-metadata, .action-buttons {
+    text-align: center;
+}
+
+.action-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
