@@ -1,0 +1,16 @@
+.product-container {
+    display: flex;
+    border: 1px solid rgba(0,0,0,.125);
+    padding: 20px 0px;
+}
+
+.product-metadata {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.disable-click {
+    pointer-events: none;
+    filter: blur(2px);
+}
