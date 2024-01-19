@@ -25,8 +25,9 @@ export class LoginComponent implements OnInit {
       this.authService.loginUser(this.loginForm)
       .subscribe((res: any)=>{
         console.log('login success::', res)
-        window.location.href = '/';
+        this.authService.setUserData(res);
         this.createUserCart();
+        window.location.href = '/';
       })
     }
   }

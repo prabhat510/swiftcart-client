@@ -27,11 +27,20 @@ export class HeaderComponent implements OnInit {
 
   logout() {
     const token = this.authService.getRefreshToken();
-    this.authService.logoutUser({token: token})
-    .subscribe((res)=>{
-      console.log("logged out successfully", res);
+    if(token) {
+      this.authService.logoutUser({token: token})
+      .subscribe((res)=>{
+        console.log("logged out successfully", res);
+        this.authService.clearUserSession();
+        window.location.reload();
+      });
+    } else {
       this.authService.clearUserSession();
-      window.location.reload();
-    });
+      this.router.navigate(['/']);
+      setTimeout(() => {
+        window.location.reload();
+      }, 200);
+    }
+   
   }
 }

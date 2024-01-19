@@ -101,7 +101,7 @@ export class AuthService {
 
   loginUser(user: object) {
     const url = `${getServiceUrl().authApiEndpoint}/login`;
-    return this.httpClient.post(url, user, { withCredentials: true});
+    return this.httpClient.post(url, user);
   }
 
   logoutUser(data: any) {  

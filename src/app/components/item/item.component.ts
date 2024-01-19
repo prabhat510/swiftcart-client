@@ -28,14 +28,16 @@ export class ItemComponent implements OnInit {
     const payload = {
       productId: this.product._id
     }
-    this.cartService.checkItemAddedToCart(payload)
-    .subscribe((res:any)=>{
-      if(res) {
-        this.isItemAlreadyInCart = true;
-      } else {
-        this.isItemAlreadyInCart = false;
-      }
-    })
+    if(this.userId) {
+      this.cartService.checkItemAddedToCart(payload)
+      .subscribe((res:any)=>{
+        if(res) {
+          this.isItemAlreadyInCart = true;
+        } else {
+          this.isItemAlreadyInCart = false;
+        }
+      })
+    }
   }
   addToCart() {
     if(this.userId) {
