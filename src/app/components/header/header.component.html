@@ -1,33 +1,81 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <div class="container-fluid">
-      <a class="navbar-brand" href="#">SwiftCart</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+  <!-- desktop design start -->
+    <div class="navbar-wrapper hidden-sm hidden-xs">
+      <a class="navbar-brand" routerLink="/">SwiftCart</a>
+      <div class="search-wrapper">
+        <input class="form-control me-2" autocomplete="off" type="search" placeholder="Search for products" aria-label="Search" name="search" [(ngModel)]="searchKey">
+        <button class="btn btn-outline-success" type="submit" (click)="search()">Search</button>
+      </div>
+      <div id="navbarSupportedContent">
+        <ul class="navbar-nav d-flex">
           <ng-container *ngIf="!isLoggedin; else loggedIn">
             <li class="nav-item">
               <a class="nav-link" href="/register">Register</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="/login">Login</a>
+              <a class="nav-link" href="javascript:void(0);" (click)="handleLogin()">Login</a>
             </li>
           </ng-container>
           <ng-template #loggedIn>
+           <div class="d-flex user-info">
             <li class="nav-item">
-              <a class="nav-link" href="/cart">Cart</a>
+              <a class="nav-link">
+                <span class="user-profile d-flex"><img src="assets/user.png" alt=""> {{userName | titlecase}}</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link cart-link" routerLink="/cart">
+                <img class="cart-image" src="assets/shopping-cart.png" alt="" srcset="">
+                <span class="item-count">{{cartItemsCount}}</span>
+              </a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="javascript:void();" (click)="logout()">Logout</a>
             </li>
+           </div>
           </ng-template>
         </ul>
-        <form class="d-flex">
-          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="search" [(ngModel)]="searchKey">
-          <button class="btn btn-outline-success" type="submit" (click)="search()">Search</button>
-          
-        </form>
       </div>
     </div>
+    <!-- desktop design ends -->
+
+
+    <!-- small device design starts -->
+     <div class="navbar-mobile hidden-md hidden-lg">
+        <a href="javascript:void(0);" class="toggle-button" (click)="toggleMenu()" #toggleButton>
+          <span class="bar"></span>
+          <span class="bar"></span>
+          <span class="bar"></span>
+        </a>
+        <a class="brand" routerLink="/">SwiftCart</a>
+        <ng-container *ngIf="!isLoggedin; else mobileLoggedIn">
+          <li class="navitem">
+            <a class="navlink" href="javascript:void(0);" (click)="handleLogin()">Login</a>
+          </li>
+        </ng-container>
+        <ng-template #mobileLoggedIn>
+         <li class="user-info d-flex">
+          <a class="navlink d-flex cart-link" routerLink="/cart">
+            <img class="cart-image" src="assets/shopping-cart.png" alt="" srcset="">
+            <span class="item-count">{{cartItemsCount}}</span>
+          </a>
+        </li>
+        </ng-template>
+
+        <!-- user menu on mobile -->
+        <div class="menu" [ngClass]="{'menu-open': showMenu, 'menu-close': !showMenu}" #menu>
+          <ul class="menu-list">
+              <li class="menu-item" routerLink="/cart" (click)="showMenu=false;"><img src="assets/shopping-cart.png" alt="">My Cart</li>
+              <li class="menu-item" (click)="showMenu=false;"><img src="assets/lists.png" alt="">My Orders</li>
+              <li class="menu-item" (click)="showMenu=false;"><img src="assets/user.png" alt="">My Account</li>
+              <li class="menu-item" *ngIf="isLoggedin" (click)="logout()"><img src="assets/logout.png" alt="">Logout</li>
+          </ul>
+        </div>
+
+     </div> 
+     <div class="search-wrapper mt-2 hidden-md hidden-lg">
+      <input class="form-control me-2" autocomplete="off" type="search" placeholder="Search for products" aria-label="Search" name="search" [(ngModel)]="searchKey">
+      <button class="btn btn-outline-success" type="submit" (click)="search()">Search</button>
+    </div>
+    <!-- small device design ends -->
 </nav>

@@ -1,5 +1,10 @@
-<div class="product-list-wrapper">
+<div class="product-list-wrapper" *ngIf="!loadingItems">
     <div class="product-wrapper card" *ngFor="let product of products | filter : filterTerm">
         <app-item [product]="product"></app-item>
+    </div>
+</div>
+<div class="d-flex justify-content-center loader" *ngIf="loadingItems">
+    <div class="spinner-border" style="width: 3rem; height: 3rem;" role="status">
+      <span class="visually-hidden">Loading...</span>
     </div>
 </div>

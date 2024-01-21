@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-register-user',
@@ -9,7 +10,8 @@ import { Router } from '@angular/router';
   styleUrls: ['./register-user.component.scss']
 })
 export class RegisterUserComponent implements OnInit {
-
+  registrationInProgress = false;
+  errorMessage = "";
   userForm = {
     name: '',
     username: '',
@@ -22,23 +24,19 @@ export class RegisterUserComponent implements OnInit {
   ngOnInit(): void {
   }
   submitForm(usrForm: NgForm) {
-    console.log(usrForm)
+    this.registrationInProgress = true;
     if(usrForm.status === "VALID") {
       this.authService.registerUser(this.userForm)
-      .subscribe((res: any)=>{
-        console.log('registration success::', res)
-        localStorage.setItem('user', JSON.stringify({
-          token: res.token,
-          email: res.email,
-          mobile: res.mobile,
-          name: res.name,
-          username: res.username,
-          userId: res._id
-        }))
-        setTimeout(() => {
-          this.router.navigate(['']);
-        }, 500);
-      })
+      .then(
+        (res: any)=>{
+          console.log('registration success::', res);
+          this.router.navigate(['/login']);
+        }
+      ).catch((error=>{
+        this.registrationInProgress = false;
+        this.errorMessage =  JSON.parse(error.message)['message'];
+        console.log('registration failed::', error.status, JSON.parse(error.message)['message']);
+      }))
     } else {
       alert('please fill all the fields properly');
     }

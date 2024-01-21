@@ -4,7 +4,6 @@ import { jwtDecode } from "jwt-decode";
 
 import { getServiceUrl } from '../utils/api.config';
 import { CookieService } from './cookie.service';
-import { BehaviorSubject } from 'rxjs';
 
 
 @Injectable({
@@ -18,8 +17,25 @@ export class AuthService {
    }
 
   registerUser(userPayload: any) {
-    const url = getServiceUrl().swiftCartApiEndpoint + '/user/register';
-    return this.httpClient.post(url, userPayload);
+    const url = getServiceUrl().swiftCartApiEndpoint + '/auth/register';
+    return new Promise((resolve, reject)=>{
+      fetch(url, {
+        method: 'POST',
+        body: JSON.stringify(userPayload),
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${this.getAccessToken()}`
+        },
+      }).then(res=>{
+           if (res.ok) {
+          resolve(res.json()); // Parse JSON response
+        } else {
+          res.text().then(errorText=>{
+            reject( {status: res.status, message: errorText});
+          })
+        }
+      }).catch(err=>reject(err));
+    })
   }
 
   getUserId():string {
@@ -94,9 +110,9 @@ export class AuthService {
     return this.cookieService.getCookie('refresh_token');
   }
 
-  getNewAccessToken(data: object) {
+  getNewAccessToken(data: any) {
     const url = `${getServiceUrl().authApiEndpoint}/token`;
-    return this.httpClient.post(url, data, { withCredentials: true});
+    return this.httpClient.post(url, data);
   }
 
   loginUser(user: object) {

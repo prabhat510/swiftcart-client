@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 import { CartService } from 'src/app/services/cart.service';
 
@@ -10,6 +10,8 @@ import { CartService } from 'src/app/services/cart.service';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
+  errorMessage = "";
+  loginInProgress = false;
   loginForm = {
     username: '',
     password: ''
@@ -20,14 +22,21 @@ export class LoginComponent implements OnInit {
   }
 
   submitForm(usrForm: NgForm) {
-    console.log(usrForm)
+    this.loginInProgress = true;
     if(usrForm.status === "VALID") {
       this.authService.loginUser(this.loginForm)
-      .subscribe((res: any)=>{
-        console.log('login success::', res)
-        this.authService.setUserData(res);
-        this.createUserCart();
-        window.location.href = '/';
+      .subscribe({
+        next: (res: any)=>{
+          console.log('login success::', res)
+          this.authService.setUserData(res);
+          this.createUserCart();
+          window.location.href = '/';
+        },
+        error: (error)=>{
+          this.loginInProgress = false;
+          this.errorMessage = "please check your credentials!";
+          console.log('error loggin in::', error)
+        }
       })
     }
   }

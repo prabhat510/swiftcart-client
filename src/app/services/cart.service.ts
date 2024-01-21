@@ -1,12 +1,13 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { getServiceUrl } from '../utils/api.config';
+import { Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CartService {
-
+  cartUpdateSubject = new Subject<Number>();
   constructor(private httpClient: HttpClient) { }
 
   addProductToCart(productPayload: any) {
@@ -39,4 +40,13 @@ export class CartService {
     return this.httpClient.delete(url, {body: productPayload});
   }
   
+  clearCartItems() {
+    const url = getServiceUrl().swiftCartApiEndpoint + `/carts/remove/all`;
+    return this.httpClient.delete(url, {responseType: 'text'});
+  }
+
+  getCartItemsCount() {
+    const url = getServiceUrl().swiftCartApiEndpoint + `/carts/count`;
+    return this.httpClient.get(url);
+  }
 }

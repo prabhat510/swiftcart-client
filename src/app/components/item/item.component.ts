@@ -16,6 +16,8 @@ export class ItemComponent implements OnInit {
   isItemAlreadyInCart = false;
   userId:string;
   util: GlobalUtil;
+  isLoggedIn = false;
+  addingToCart = false;
 
   constructor(private cartService: CartService, private authService: AuthService,
       private router: Router) {
@@ -25,9 +27,10 @@ export class ItemComponent implements OnInit {
   ngOnInit(): void {
     console.log('ngOnInit::');
     this.userId = this.authService.getUserId();
+    this.isLoggedIn = this.authService.isLoggedIn;
     const payload = {
       productId: this.product._id
-    }
+    };
     if(this.userId) {
       this.cartService.checkItemAddedToCart(payload)
       .subscribe((res:any)=>{
@@ -41,6 +44,7 @@ export class ItemComponent implements OnInit {
   }
   addToCart() {
     if(this.userId) {
+      this.addingToCart = true;
       const payload = {
         productId: this.product._id,
         quantity: 1
@@ -48,10 +52,13 @@ export class ItemComponent implements OnInit {
       this.cartService.updateCart(payload)
       .subscribe({
         next: (res)=>{
+          this.addingToCart = false;
           this.isItemAlreadyInCart = true;
+          this.cartService.cartUpdateSubject.next(1);
           console.log("response::", res);
         },
         error: (error)=>{
+          this.addingToCart = false;
           console.log("error adding to cart::", error);
         }
       })
@@ -61,10 +68,14 @@ export class ItemComponent implements OnInit {
   }
 
   handleClick() {
+   if(this.isLoggedIn) {
     if(this.isItemAlreadyInCart) {
       this.router.navigate(['/cart']);
     } else {
       this.addToCart();
     }
+   } else {
+    this.router.navigate(['/login']);
+   }
   }
 }

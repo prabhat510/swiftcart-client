@@ -1,0 +1,49 @@
+.payment-container {
+  display: flex;
+  justify-content: center;
+  padding: 50px;
+  .payment-info {
+    box-shadow: 0 0 8px 5px rgba(0, 0, 0, 0.4);
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    padding: 20px 50px;
+    border-radius: 10px;
+
+    button {
+      width: 200px;
+    }
+
+    .payment-failed-icon img {
+      width: 128px;
+    }
+    .light-text {
+      font-weight: 300;
+      color: #777;
+    }
+  }
+}
+
+.summary-wrapper {
+  .summary {
+    padding-left: 10%;
+    display: flex;
+    gap: 20%;
+
+    @media (width < 1024px) {
+        flex-direction: column;
+    }
+
+    .metadata {
+      position: sticky;
+      top: 70px;
+      height: fit-content;
+    }
+  }
+
+  .message {
+    text-align: center;
+    margin-top: 30px;
+    padding: 0 20px;
+  }
+}

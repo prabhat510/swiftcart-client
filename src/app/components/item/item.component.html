@@ -1,5 +1,5 @@
 <div class="product-container"  *ngIf="product">
-    <div class="product-image">
+    <div>
         <app-image-tile [imageUrl]="util.getImageSrc(product._id)" [title]="product.name"></app-image-tile>
     </div>
     <div class="card-body product-metadata">
@@ -7,7 +7,7 @@
       <p class="card-text">Rs.&nbsp;{{product.price}}</p>
       <div class="action-buttons">
         <a href="#" class="btn btn-primary">view product</a>
-        <button type="button" class="btn btn-dark cart-button" (click)="handleClick()">
+        <button type="button" class="btn btn-dark cart-button" [disabled]="addingToCart" (click)="handleClick()">
             {{isItemAlreadyInCart ? 'Go to Cart': 'Add to Cart'}}
         </button>
     </div>

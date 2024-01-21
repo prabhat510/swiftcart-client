@@ -1,20 +1,42 @@
-<div>
-    <p style="text-align: center; margin-top: 30px;">Hi {{displayName}}, Your Order has been placed successfully</p>
+<div class="summary-wrapper" *ngIf="orderData.paymentStatus.includes('success'); else paymentFailed">
+    <p class="message">Hey {{displayName}}, Your Order has been placed successfully</p>
     <hr>
-    <div style="padding-left: 100px;">
-        <div *ngFor="let item of orderData.items" >
-            <p><span class="placeholder">product id:</span>{{item.product._id}}</p>
-            <p><span class="placeholder">item:</span>{{item.product.name}}</p>
-            <p><span class="placeholder">price:</span>{{ 'Rs. ' + item.product.price}}</p>
-            <hr>
+    <div class="summary">
+        <div class="items-description">
+            <div *ngFor="let item of orderData.items" >
+                <p><span class="placeholder">item:</span>{{item.product.name}}</p>
+                <p><span class="placeholder">price:</span>{{ 'Rs. ' + item.product.price}}</p>
+                <p><span class="placeholder">quantity:</span>{{item.quantity}}</p>
+                <hr>
+            </div>
         </div>
-        <div>
-            <p><span class="placeholder fw-bold">Total Amount:</span>{{ 'Rs. ' + orderData.amount}}</p>
-            <p><span class="placeholder fw-bold">Address:</span>{{ orderData.shippingAddress}}</p>
-        </div>
-    </div>
-    <div style="text-align: center;" class="mb-2">
-        <button type="button" class="btn btn-primary" (click)="generateAndOpenPDF()">generate invoice</button>
-    </div>
+       <div class="metadata">
+            <div>
+                <p><span class="placeholder fw-bold">Total Amount:</span>{{ 'Rs. ' + orderData.amount}}</p>
+                <p><span class="placeholder fw-bold">Address:</span>{{ orderData.shippingAddress}}</p>
+            </div>
+            <div class="mb-2">
+                <button type="button" class="btn btn-primary" (click)="generateAndOpenPDF()">generate invoice</button>
+            </div>
+       </div>
+   </div>
+  
 </div>
 
+<ng-template #paymentFailed>
+    <div class="payment-container">
+       <div class="payment-info">
+            <div class="payment-failed-icon">
+                <img src="/assets/payment-failure.png" alt="payment failed icon">
+            </div>
+            <h2> &#8377;{{orderData.amount}}</h2>
+            <h3 class="mt-4" >Payment Failed!</h3>
+            <strong>Hey {{displayName}}, seems like there was some trouble.</strong>
+            <strong>{{payment.remarks}} <span *ngIf="payment.paymentId">You can track your refund status using below payment ID.</span></strong>
+            <div class="light-text mt-4" *ngIf="payment.paymentId">
+                <p>Payment ID: {{payment.paymentId}}</p>
+            </div>
+            <a href="/payment"><button class="btn btn-success mt-4">TRY AGAIN</button></a>
+       </div>
+    </div>
+</ng-template>

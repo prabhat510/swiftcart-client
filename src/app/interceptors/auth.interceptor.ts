@@ -23,7 +23,7 @@ export class AuthInterceptor implements HttpInterceptor {
 
     return next.handle(request).pipe(
       catchError((error: any) => {
-        if (!request.url.includes('login') && !request.url.includes('logout') && error instanceof HttpErrorResponse && error.status === 403) {
+        if (!request.url.includes('/api/auth') && error instanceof HttpErrorResponse && error.status === 403) {
           // Token expired or unauthorized
           if (!this.refreshTokenInProgress) {
             this.refreshTokenInProgress = true;

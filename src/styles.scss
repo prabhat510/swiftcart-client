@@ -1,34 +1,74 @@
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 button:focus {
-    box-shadow: none !important;
+  box-shadow: none !important;
 }
 
 .placeholder {
-    display: inline-block;
-    width: 120px;
+  display: inline-block;
+  width: 120px;
 }
 
 .form-container {
-    display: flex;
-    justify-content: center;
-    padding: 50px 0;
+  display: flex;
+  justify-content: center;
+  padding: 50px 0;
 }
 
 .registration-form {
-    border: 1px solid gray;
-    width: 400px;
-    padding: 30px;
+  border: 1px solid gray;
+  width: 400px;
+  padding: 30px;
 }
 
 .w-100 {
-    width: 100%;
+  width: 100%;
 }
 
 .nav-link {
-    color: #fff !important;
+  color: #fff !important;
+}
+
+.center-text {
+  text-align: center;
+}
+
+.loader {
+  position: fixed;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+@media (width < 576px) {
+  .hidden-xs {
+    display: none !important;
+  }
+}
+
+@media (576px <= width <= 1023px) {
+  .hidden-sm {
+    display: none !important;
+  }
+}
+
+@media (1024px <= width <= 1279px) {
+  .hidden-md {
+    display: none !important;
+  }
+}
+
+@media (width >= 1280px) {
+  .hidden-lg {
+    display: none !important;
+  }
+}
+
+.error-message {
+  color: red;
+  text-align: center;
 }

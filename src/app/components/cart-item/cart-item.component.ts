@@ -55,6 +55,8 @@ export class CartItemComponent implements OnInit {
     this.cartService.removeCartItem(productPayload)
     .subscribe((res: any)=> {
       console.log("res==....", res);
+      // notify cart item has been removed
+      this.cartService.cartUpdateSubject.next(-1);
       this.removeItemEvent.emit();
     });
   }

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { OrderService } from '../../services/order.service';
 import { CartService } from 'src/app/services/cart.service';
+import { getServiceUrl } from 'src/app/utils/api.config';
 
 
 @Component({
@@ -20,7 +21,7 @@ export class PaymentComponent implements OnInit {
     description: "Test Transaction",
     image: "https://t4.ftcdn.net/jpg/02/66/71/71/360_F_266717164_J8Fqw4OcXRkKtNwFyHD02zIEsxPI7qHH.jpg",
     order_id: "order_NGH6adccXE1Bwv", //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
-    callback_url: "https://swiftcart-uo5v.onrender.com/api/payment/status",
+    callback_url: "",
     redirect: true,
     prefill: {
       //We recommend using the prefill parameter to auto-fill customer's contact information especially their phone number
@@ -46,7 +47,7 @@ export class PaymentComponent implements OnInit {
     ) { }
 
   ngOnInit(): void {
-    this.fetchOrderData();
+    this.fetchCartData();
   }
   submitForm(form: NgForm) {
     
@@ -55,6 +56,7 @@ export class PaymentComponent implements OnInit {
       .then((res: any)=>{
         this.options.amount = `${this.totalAmount*100}`;
         this.options.order_id = res.id;
+        this.options.callback_url = getServiceUrl().swiftCartApiEndpoint + `/payment/status?orderId=${res.id}`;
         this.setRazorPayScriptsInDOM();
         this.createOrder();
     }) 
@@ -83,13 +85,13 @@ export class PaymentComponent implements OnInit {
     const script = document.createElement('script');
     const razorpayClientScript = 'var options = ' + JSON.stringify(this.options) + ';' 
     + ' var rzp1 = new Razorpay(options); rzp1.on("payment.success", ()=>{ location.href="http://localhost:4200" });'
-    + "setTimeout(() => {rzp1.open();}, 500)";
+    + "setTimeout(() => {rzp1.open();}, 300)";
     const scriptContent = document.createTextNode(razorpayClientScript);
     script.appendChild(scriptContent);
     body.appendChild(script);
   }
 
-  fetchOrderData() {
+  fetchCartData() {
     this.cartService.getAllProductsInCart()
     .subscribe((res: any)=>{
       console.log("response::", res);

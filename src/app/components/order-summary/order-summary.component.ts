@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import {jsPDF} from 'jspdf';
 import { OrderService } from '../../services/order.service';
 import { ActivatedRoute } from '@angular/router';
+import { PaymentService } from 'src/app/services/payment.service';
+import { CartService } from 'src/app/services/cart.service';
 
 @Component({
   selector: 'app-order-summary',
@@ -9,6 +11,7 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./order-summary.component.scss']
 })
 export class OrderSummaryComponent implements OnInit {
+  payment:any;
   orderId:any = '';
   displayName:string;
   orderData = {
@@ -20,24 +23,18 @@ export class OrderSummaryComponent implements OnInit {
     amount: 0,
     userId: ''
   }
-  constructor(private orderService: OrderService, private route: ActivatedRoute) { }
+  constructor(private orderService: OrderService,
+    private paymentService: PaymentService,
+    private cartService: CartService,
+    private route: ActivatedRoute) { }
 
   ngOnInit(): void {
     const queryParams = this.route.snapshot.queryParamMap;
     this.orderId = queryParams.get('orderId');
-    this.orderService.getOrderDetails(this.orderId).subscribe((res: any)=>{
-      if(res) {
-        this.orderData.created = res.createdAt;
-        this.orderData.items = res.items;
-        this.orderData.orderId = res.orderId;
-        this.orderData.paymentStatus = res.paymentStatus;
-        this.orderData.shippingAddress = res.shippingAddress;
-        this.orderData.amount = res.totalAmount;
-        this.orderData.userId = res.user?._id;
-        this.displayName = res.user?.name;
-      }
-      console.log('order api response', res);
-    })
+    if(this.orderId) {
+      this.fetchOrderDetails();
+    }
+    this.fetchPaymentDetails();
   }
 
   generateAndOpenPDF() {
@@ -84,6 +81,56 @@ export class OrderSummaryComponent implements OnInit {
 
 
     return res;
-}
+  }
 
+  fetchPaymentDetails() {
+    this.paymentService.getPaymentDetails(this.orderId)
+    .subscribe({
+      next:(res:any)=>{
+        this.payment = res.payment;
+        console.log("payment details::", res);
+      },
+      error: (error)=>{
+        console.log("error getting payment details", error);
+      }
+    })
+  }
+
+  fetchOrderDetails() {
+    this.orderService.getOrderDetails(this.orderId)
+    .subscribe({
+      next: (res: any)=>{
+        if(res) {
+          if(res.paymentStatus.includes('success')) {
+            // payment for order was successful, clear cart items
+            this.clearCartItems();
+          }
+          this.orderData.created = res.createdAt;
+          this.orderData.items = res.items;
+          this.orderData.orderId = res.orderId;
+          this.orderData.paymentStatus = res.paymentStatus;
+          this.orderData.shippingAddress = res.shippingAddress;
+          this.orderData.amount = res.totalAmount;
+          this.orderData.userId = res.user?._id;
+          this.displayName = res.user?.name;
+        }
+        console.log('order api response', res);
+      },
+      error: (error)=>{
+        console.log("error getting order details", error)
+      }
+    })
+  }
+
+  clearCartItems() {
+    this.cartService.clearCartItems()
+    .subscribe({
+      next: (res)=>{
+        console.log("cart cleared::", res);
+      },
+     error: (error)=>{
+      console.log("error in clearing cart items::", error);
+     }
+    })
+  }
 }
