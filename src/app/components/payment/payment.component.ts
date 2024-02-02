@@ -113,6 +113,10 @@ export class PaymentComponent implements OnInit {
       console.log('order created::', res);
     });
   }
+
+  linkOrderIdWithCartItems() {
+    
+  }
 }
 
 /**

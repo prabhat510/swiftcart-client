@@ -1,7 +1,8 @@
 <div class="form-container">
-    <form class="registration-form" (ngSubmit)="submitForm(usrForm)" #usrForm="ngForm">
+    <form class="registration-form" (ngSubmit)="loginUser(usrForm)" #usrForm="ngForm" *ngIf="loginFlow">
+        <h5 class="center-text">Login to SwiftCart.com</h5>
         <p *ngIf="errorMessage" class="error-message">{{errorMessage | titlecase}}</p>
-        <div class="mb-3">
+        <div class="mb-3 mt-4">
             <label for="username" class="form-label">Username</label>
             <input
             [(ngModel)]="loginForm.username"  #username="ngModel"
@@ -12,9 +13,31 @@
           <input [(ngModel)]="loginForm.password"  #password="ngModel"
            type="password" class="form-control" id="exampleInputPassword1" name="password" required/>
         </div>
-        <button type="submit" class="btn btn-primary w-100" [disabled]="usrForm.invalid || loginInProgress">Submit</button>
-        <div class="mt-3 form-text">
-            already have an account? <a href="/register">Register</a>
+        <button type="submit" class="btn btn-primary w-100" [disabled]="usrForm.invalid || loginInProgress">Login</button>
+        <div class="mt-2 form-text" style="text-align: right;">
+            <span style="cursor: pointer;" (click)="handleForgotPassword()">Forgot Password?</span>
         </div>
+        <div class="mt-4 or-button">
+            <span>OR</span>
+        </div>
+        <div class="mt-4 form-text">
+            Need an account? <a href="/register">SIGN UP</a>
+        </div>
+      </form>
+
+      <form class="registration-form" (ngSubmit)="sendResetPasswordRequest(resetForm)" #resetForm="ngForm" *ngIf="resetPasswordFlow">
+        <strong (click)="reset()" class="cursor-pointer"><span>&#x2190;&nbsp;Login</span></strong>
+        <h5 class="center-text mt-3">Forgot Password</h5>
+        <p *ngIf="errorMessage" class="error-message">{{errorMessage | titlecase}}</p>
+        <p *ngIf="successMessage" class="success-message">{{successMessage | titlecase}}</p>
+        <ng-container *ngIf="!mailSentSuccessfully">
+            <div class="mb-3 mt-4">
+                <label for="email" class="form-label">Enter your email address</label>
+                <input
+                [(ngModel)]="resetPasswordForm.email"  #email="ngModel"
+                 type="email" class="form-control" id="email" name="email" required/>
+            </div>
+            <button type="submit" class="btn btn-primary w-100" [disabled]="resetForm.invalid || resetLinkInProgress">Reset Password</button>
+        </ng-container>
       </form>
 </div>

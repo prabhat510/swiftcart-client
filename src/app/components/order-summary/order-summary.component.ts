@@ -127,6 +127,7 @@ export class OrderSummaryComponent implements OnInit {
     .subscribe({
       next: (res)=>{
         console.log("cart cleared::", res);
+        this.cartService.cartUpdateSubject.next(0);
       },
      error: (error)=>{
       console.log("error in clearing cart items::", error);

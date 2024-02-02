@@ -1,0 +1,47 @@
+<!-- desktop design starts -->
+<div class="order-container d-flex hidden-xs hidden-sm" *ngIf="orderData">
+    <app-image-tile [imageUrl]="util.getImageSrc(orderData.order.product._id)" [title]="orderData.order.product.name"></app-image-tile>
+    <div class="title">
+        {{orderData.order.product.name}}
+    </div>
+    <div class="price">
+        &#8377;{{orderData.order.product.price}}
+    </div>
+    <div class="description" style="color: #198754;">
+        <svg
+            class="bi flex-shrink-0 me-2"
+            width="24"
+            height="24"
+            role="img"
+            aria-label="Success:"
+              >
+                <use xlink:href="#check-circle-fill" />
+              </svg>
+        Your order has been placed
+    </div>
+    <div class="payment">
+        Date: {{orderData.date | date}}
+    </div>
+</div>
+
+
+<!-- mobile design starts -->
+<div class="order-mobile-container hidden-md hidden-lg" *ngIf="orderData">
+   <div class="d-flex">
+        <app-image-tile [imageUrl]="util.getImageSrc(orderData.order.product._id)" [title]="orderData.order.product.name"></app-image-tile>
+        <div class="metadata">
+            <p>{{orderData.order.product.name}}</p>
+            <p> &#8377;{{orderData.order.product.price}}</p>
+        </div>
+   </div>
+   <p class="mt-2 mb-2">date: {{orderData.date | date}}</p>
+   <p class="mt-2 mb-2" style="color: #198754;"><svg
+       class="bi flex-shrink-0 me-2"
+       width="24"
+       height="24"
+       role="img"
+       aria-label="Success:"
+       >
+       <use xlink:href="#check-circle-fill" />
+   </svg>Your order has been placed</p>
+</div>

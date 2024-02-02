@@ -23,4 +23,9 @@ export class OrderService {
     const url = getServiceUrl().swiftCartApiEndpoint + '/order/' + orderId;
     return this.httpClient.get(url);
   }
+
+  getOrdersList() {
+    const url = getServiceUrl().swiftCartApiEndpoint + '/order/list';
+    return this.httpClient.get(url);
+  }
 }

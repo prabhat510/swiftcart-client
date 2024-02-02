@@ -1,4 +1,4 @@
-<div class="summary-wrapper" *ngIf="orderData.paymentStatus.includes('success'); else paymentFailed">
+<div class="summary-wrapper" *ngIf="orderData.paymentStatus.includes('success')">
     <p class="message">Hey {{displayName}}, Your Order has been placed successfully</p>
     <hr>
     <div class="summary">
@@ -23,13 +23,13 @@
   
 </div>
 
-<ng-template #paymentFailed>
+<ng-container *ngIf="orderData.paymentStatus.includes('failed')">
     <div class="payment-container">
        <div class="payment-info">
             <div class="payment-failed-icon">
                 <img src="/assets/payment-failure.png" alt="payment failed icon">
             </div>
-            <h2> &#8377;{{orderData.amount}}</h2>
+            <h2>&#8377;{{orderData.amount}}</h2>
             <h3 class="mt-4" >Payment Failed!</h3>
             <strong>Hey {{displayName}}, seems like there was some trouble.</strong>
             <strong>{{payment.remarks}} <span *ngIf="payment.paymentId">You can track your refund status using below payment ID.</span></strong>
@@ -39,4 +39,4 @@
             <a href="/payment"><button class="btn btn-success mt-4">TRY AGAIN</button></a>
        </div>
     </div>
-</ng-template>
+</ng-container>

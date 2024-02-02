@@ -1,0 +1,18 @@
+<div class="form-container">
+    <form class="registration-form" (ngSubmit)="changePassword(usrForm)" #usrForm="ngForm">
+        <ng-container *ngIf="!resetSuccessfull; else message">
+          <h5 class="center-text">set a new password for your account</h5>
+          <p *ngIf="errorMessage" class="error-message">{{errorMessage | titlecase}}</p>
+          <p *ngIf="successMessage" class="error-message" style="color: green;">{{successMessage | titlecase}}</p>
+          <div class="mb-3 mt-4">
+            <label for="exampleInputPassword1" class="form-label">Password</label>
+            <input [(ngModel)]="userForm.password"  #password="ngModel"
+            type="password" class="form-control" id="exampleInputPassword1" name="password" required/>
+          </div>
+          <button type="submit" class="btn btn-primary w-100" [disabled]="usrForm.invalid || errorMessage">Reset Password</button>
+        </ng-container>
+        <ng-template #message>
+          <p style="color: green;">your password has been successfully changed, you can now proceed to <a href="/login">login</a></p>
+        </ng-template>
+      </form>
+</div>

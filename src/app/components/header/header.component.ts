@@ -32,7 +32,11 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit(): void {
     this.cartService.cartUpdateSubject.subscribe((res: number)=>{
-      this.cartItemsCount = this.cartItemsCount + res;
+      if(res===0) {
+        this.cartItemsCount = 0;
+      } else {
+        this.cartItemsCount = this.cartItemsCount + res;
+      }
       console.log("cart item in observer", this.cartItemsCount);
     })
     this.isLoggedin = this.authService.isLoggedIn;

@@ -20,6 +20,11 @@ import { HeaderComponent } from './components/header/header.component';
 
 import { AuthInterceptor } from './interceptors/auth.interceptor';
 import { FooterComponent } from './components/footer/footer.component';
+import { UserProfileComponent } from './components/user-profile/user-profile.component';
+import { OrderListingComponent } from './components/order-listing/order-listing.component';
+import { ResetUserComponent } from './components/reset-user/reset-user.component';
+import { TopNotificationComponent } from './components/top-notification/top-notification.component';
+import { OrderComponent } from './components/order/order.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +39,12 @@ import { FooterComponent } from './components/footer/footer.component';
     OrderSummaryComponent,
     LoginComponent,
     HeaderComponent,
-    FooterComponent
+    FooterComponent,
+    UserProfileComponent,
+    OrderListingComponent,
+    ResetUserComponent,
+    TopNotificationComponent,
+    OrderComponent
   ],
   imports: [
     CookieModule.withOptions(),
