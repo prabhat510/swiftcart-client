@@ -8,6 +8,7 @@ import { AuthService } from 'src/app/services/auth.service';
   styleUrls: ['./user-profile.component.scss']
 })
 export class UserProfileComponent implements OnInit {
+  loading = true;
   message = "";
   user:any;
   email:string;
@@ -48,6 +49,7 @@ export class UserProfileComponent implements OnInit {
           this.mobile = res.mobile;
           this.name = res.name;
           this.address = res.address;
+          this.loading = false;
           console.log("user::", this.user);
         }
       }

@@ -8,7 +8,7 @@ import { OrderService } from 'src/app/services/order.service';
   styleUrls: ['./order-listing.component.scss']
 })
 export class OrderListingComponent implements OnInit {
-
+  loading = true;
   orderData: Array<IOrderData> = [];
   constructor(private orderService: OrderService) { }
 
@@ -27,6 +27,9 @@ export class OrderListingComponent implements OnInit {
             }
           }
         }
+        this.loading = false;
+      }, error: (err)=>{
+        this.loading = false;
       }
     })
   }

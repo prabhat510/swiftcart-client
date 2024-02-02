@@ -41,7 +41,7 @@ export class CartService {
   }
   
   clearCartItems() {
-    const url = getServiceUrl().swiftCartApiEndpoint + `/carts/remove/all`;
+    const url = getServiceUrl().swiftCartApiEndpoint + `/carts/remove/items`;
     return this.httpClient.delete(url, {responseType: 'text'});
   }
 

@@ -1,3 +1,9 @@
 <ng-container *ngFor="let order of orderData">
     <app-order [orderData]="order"></app-order>
 </ng-container>
+
+<div class="d-flex justify-content-center loader" *ngIf="loading">
+    <div class="spinner-border" style="width: 3rem; height: 3rem;" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+</div>
