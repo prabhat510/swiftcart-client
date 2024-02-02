@@ -1,0 +1,17 @@
+form {
+    min-width: 350px;
+    .form-field {
+        margin-bottom: 50px;
+        input {
+            height: 50px;
+            min-width: 200px;
+        }
+        .d-flex {
+            gap: 30px;
+            .edit {
+                color: #2874f0;
+                cursor: pointer;
+            }
+        }
+    }
+}

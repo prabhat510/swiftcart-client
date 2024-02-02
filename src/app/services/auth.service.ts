@@ -122,7 +122,32 @@ export class AuthService {
 
   logoutUser(data: any) {  
     const url = `${getServiceUrl().authApiEndpoint}/logout`;
-    // always subscribe to the observables, if they are not subscribed request is not send to the server
+    // always subscribe to the observables, if they are not subscribed request is not sent to the server
     return this.httpClient.delete(url, {body: data, responseType: 'text'});
+  }
+
+  getUserProfileInfo() {
+    const url = `${getServiceUrl().swiftCartApiEndpoint}/auth/user`;
+    return this.httpClient.get(url);
+  }
+
+  updateUserProfile(payload: any) {
+    const url = `${getServiceUrl().swiftCartApiEndpoint}/auth/user/edit`;
+    return this.httpClient.put(url, payload);
+  }
+
+  sendResetPasswordEmail(payload: any) {
+    const url = `${getServiceUrl().swiftCartApiEndpoint}/auth/user/reset`;
+    return this.httpClient.post(url, payload);
+  }
+
+  checkUserValidity(payload: any) {
+    const url = `${getServiceUrl().swiftCartApiEndpoint}/auth/user/status`;
+    return this.httpClient.post(url, payload, {responseType: 'text'});
+  }
+
+  resetPassword(payload: any) {
+    const url = `${getServiceUrl().swiftCartApiEndpoint}/auth/reset/password`;
+    return this.httpClient.post(url, payload);
   }
 }

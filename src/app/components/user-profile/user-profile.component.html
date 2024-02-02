@@ -1,0 +1,57 @@
+<div class="form-container" *ngIf="user">
+    <form>
+        <fieldset>
+          <h4>Hello, {{user.username}}</h4>
+          <div class="form-field mt-4">
+            <div class="d-flex">
+                <h5><label class="form-label">Personal Information</label></h5>
+                <span class="edit" (click)="editInfo('name', true)" *ngIf="!editingName">Edit</span>
+                <span class="edit" (click)="editInfo('name', false)" *ngIf="editingName">cancel</span>
+            </div>
+            <div class="d-flex">
+              <input type="text" id="firstname" class="form-control" [(ngModel)]="name" name="name" [ngClass]="{'disabled': !editingName}" [disabled]="!editingName" autocomplete="off">
+              <button type="button" class="btn btn-primary" *ngIf="editingName" [disabled]="updateRequestInProgress" (click)="updateUserDetails('name')">SAVE</button>
+            </div>
+          </div>
+          <div class="form-field">
+           <div class="d-flex">
+            <h5><label for="email" class="form-label">Email address</label></h5>
+            <span class="edit" (click)="editInfo('email', true)" *ngIf="!editingEmail">Edit</span>
+            <span class="edit" (click)="editInfo('email', false)" *ngIf="editingEmail">cancel</span>
+           </div>
+            <div class="d-flex">
+              <input type="email" class="form-control" id="email" [(ngModel)]="email" name="email" [ngClass]="{'disabled': !editingEmail}" [disabled]="!editingEmail" autocomplete="off">
+              <button type="button" class="btn btn-primary" *ngIf="editingEmail" [disabled]="updateRequestInProgress" (click)="updateUserDetails('email')">SAVE</button>
+            </div>
+          </div>
+          <div class="form-field">
+            <div class="d-flex">
+                <h5><label for="mobile" class="form-label">Mobile Number</label></h5>
+                <span class="edit" (click)="editInfo('mobile', true)" *ngIf="!editingMobile">Edit</span>
+                <span class="edit" (click)="editInfo('mobile', false)" *ngIf="editingMobile">cancel</span>
+            </div>
+            <div class="d-flex">
+              <input type="text" class="form-control" [(ngModel)]="mobile" id="mobile" name="mobile" [ngClass]="{'disabled': !editingMobile}" [disabled]="!editingMobile" autocomplete="off">
+              <button type="button" class="btn btn-primary" *ngIf="editingMobile" [disabled]="updateRequestInProgress" (click)="updateUserDetails('mobile')">SAVE</button>
+            </div>
+          </div>
+          <div class="form-field">
+            <div class="d-flex">
+                <h5><label for="address" class="form-label">Address</label></h5>
+                <span class="edit" (click)="editInfo('address', true)" *ngIf="!editingAddress">Edit</span>
+                <span class="edit" (click)="editInfo('address', false)" *ngIf="editingAddress">cancel</span>
+            </div>
+            <div class="d-flex">
+              <input type="text" class="form-control" [(ngModel)]="address" id="address" name="address" [ngClass]="{'disabled': !editingAddress}" [disabled]="!editingAddress" autocomplete="off">
+              <button type="button" class="btn btn-primary" *ngIf="editingAddress" [disabled]="updateRequestInProgress" (click)="updateUserDetails('address')">SAVE</button>
+            </div>
+          </div>
+        </fieldset>
+      </form>
+</div>
+
+<app-top-notification [showNotification]="showTopNotification" [message]="message"
+ [isSuccess]="updateRequestSuccess" (messageHidden)="showTopNotification = false;">
+</app-top-notification>
+
+

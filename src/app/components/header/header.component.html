@@ -18,19 +18,21 @@
           </ng-container>
           <ng-template #loggedIn>
            <div class="d-flex user-info">
-            <li class="nav-item">
+            <li class="nav-item user-link">
               <a class="nav-link">
-                <span class="user-profile d-flex"><img src="assets/user.png" alt=""> {{userName | titlecase}}</span>
+                <span class="user-profile d-flex"><img src="assets/user.png" alt=""> {{userName | titlecase}}<img src="/assets/down.png" class="down-arrow" alt="" srcset=""></span>
               </a>
+              <ul class="user-menu">
+                <a href="/account"><li class="menu-item"><img src="assets/user.png" alt="">My Profile</li></a>
+                <a href="/orders"><li class="menu-item"><img src="assets/lists.png" alt="">Orders</li></a>
+                <a href="javascript:void(0);" (click)="logout()"><li class="menu-item"><img src="assets/logout.png" alt="">Logout</li></a>
+              </ul>
             </li>
             <li class="nav-item">
               <a class="nav-link cart-link" routerLink="/cart">
                 <img class="cart-image" src="assets/shopping-cart.png" alt="" srcset="">
                 <span class="item-count">{{cartItemsCount}}</span>
               </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="javascript:void();" (click)="logout()">Logout</a>
             </li>
            </div>
           </ng-template>
@@ -66,8 +68,8 @@
         <div class="menu" [ngClass]="{'menu-open': showMenu, 'menu-close': !showMenu}" #menu>
           <ul class="menu-list">
               <li class="menu-item" routerLink="/cart" (click)="showMenu=false;"><img src="assets/shopping-cart.png" alt="">My Cart</li>
-              <li class="menu-item" (click)="showMenu=false;"><img src="assets/lists.png" alt="">My Orders</li>
-              <li class="menu-item" (click)="showMenu=false;"><img src="assets/user.png" alt="">My Account</li>
+              <li class="menu-item" routerLink="/orders" (click)="showMenu=false;"><img src="assets/lists.png" alt="">My Orders</li>
+              <li class="menu-item" routerLink="/account" (click)="showMenu=false;"><img src="assets/user.png" alt="">My Account</li>
               <li class="menu-item" *ngIf="isLoggedin" (click)="logout()"><img src="assets/logout.png" alt="">Logout</li>
           </ul>
         </div>
