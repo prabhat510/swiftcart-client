@@ -65,6 +65,7 @@
         </ng-template>
 
         <!-- user menu on mobile -->
+       <div class="menu-wrapper" [ngClass]="{'d-none': !showMenu}">
         <div class="menu" [ngClass]="{'menu-open': showMenu, 'menu-close': !showMenu}" #menu>
           <ul class="menu-list">
               <li class="menu-item" routerLink="/cart" (click)="showMenu=false;"><img src="assets/shopping-cart.png" alt="">My Cart</li>
@@ -73,6 +74,8 @@
               <li class="menu-item" *ngIf="isLoggedin" (click)="logout()"><img src="assets/logout.png" alt="">Logout</li>
           </ul>
         </div>
+        <span class="icon-cancel" (click)="showMenu=false;">&#x2715;</span>
+       </div>
 
      </div> 
      <div class="search-wrapper mt-2 hidden-md hidden-lg">
