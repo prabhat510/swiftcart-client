@@ -23,9 +23,9 @@
                 <span class="user-profile d-flex"><img src="assets/user.png" alt=""> {{userName | titlecase}}<img src="/assets/down.png" class="down-arrow" alt="" srcset=""></span>
               </a>
               <ul class="user-menu">
-                <a href="/account"><li class="menu-item"><img src="assets/user.png" alt="">My Profile</li></a>
-                <a href="/orders"><li class="menu-item"><img src="assets/lists.png" alt="">Orders</li></a>
-                <a href="javascript:void(0);" (click)="logout()"><li class="menu-item"><img src="assets/logout.png" alt="">Logout</li></a>
+                <li class="menu-item" routerLink="/account"><img src="assets/user.png" alt="">My Profile</li>
+                <li class="menu-item" routerLink="/orders"><img src="assets/lists.png" alt="">Orders</li>
+                <li class="menu-item" (click)="logout()"><img src="assets/logout.png" alt="">Logout</li>
               </ul>
             </li>
             <li class="nav-item">
