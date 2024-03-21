@@ -1,7 +1,7 @@
 <div class="form-container">
     <form class="registration-form" (ngSubmit)="submitForm(usrForm)" #usrForm="ngForm">
       <h5 class="center-text">Create an Account</h5>
-      <p class="fw-light center-text">start shopping on SwiftCart.com</p>
+      <p class="fw-light center-text">start shopping on SwiftCart</p>
       <p *ngIf="errorMessage" class="error-message">{{errorMessage | titlecase}}</p>
         <div class="mb-3">
           <label for="exampleInputEmail1" class="form-label">Email address</label>
@@ -46,7 +46,7 @@
           <span>OR</span>
         </div>
         <div class="mt-4 form-text">
-          already have an account? <a href="/login">Login</a>
+          already have an account? <a routerLink="/login">Login</a>
         </div>
       </form>
 </div>

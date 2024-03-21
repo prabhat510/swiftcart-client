@@ -1,6 +1,6 @@
 <div class="form-container">
     <form class="registration-form" (ngSubmit)="loginUser(usrForm)" #usrForm="ngForm" *ngIf="loginFlow">
-        <h5 class="center-text">Login to SwiftCart.com</h5>
+        <h5 class="center-text">Login to SwiftCart</h5>
         <p *ngIf="errorMessage" class="error-message">{{errorMessage | titlecase}}</p>
         <div class="mb-3 mt-4">
             <label for="username" class="form-label">Username</label>
@@ -21,7 +21,7 @@
             <span>OR</span>
         </div>
         <div class="mt-4 form-text">
-            Need an account? <a href="/register">SIGN UP</a>
+            Need an account? <a routerLink="/register">SIGN UP</a>
         </div>
       </form>
 
