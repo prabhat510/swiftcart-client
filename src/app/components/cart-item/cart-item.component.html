@@ -1,6 +1,6 @@
 <div class="product-container" *ngIf="cartItem && cartItem.product" [ngClass]="{'disable-click': isCartGettingUpdated}">
     <div class="image-wrapper">
-        <app-image-tile [imageUrl]="globalUtil.getImageSrc(cartItem.product._id)" [title]="cartItem.product.name"></app-image-tile>
+        <app-image-tile  [shrinkImageSize]="true" [imageUrl]="globalUtil.getImageSrc(cartItem.product._id)" [title]="cartItem.product.name"></app-image-tile>
     </div>
     <div class="product-metadata">
         <p>{{cartItem.product.name}}</p>
@@ -13,7 +13,10 @@
             <button type="button" class="btn btn-secondary" (click)="handleProductCount('added', cartItem.product._id)">
                 +
             </button>
+            &nbsp;
+            <button type="button" class="btn btn-danger" (click)="removeCartItem(cartItem.product._id)">
+                REMOVE
+            </button>
         </p>
-        <p><button type="button" class="btn btn-danger" (click)="removeCartItem(cartItem.product._id)">REMOVE</button></p>
     </div>
 </div>

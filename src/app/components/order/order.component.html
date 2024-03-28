@@ -1,6 +1,6 @@
 <!-- desktop design starts -->
 <div class="order-container d-flex hidden-xs hidden-sm" *ngIf="orderData">
-    <app-image-tile [imageUrl]="util.getImageSrc(orderData.order.product._id)" [title]="orderData.order.product.name"></app-image-tile>
+    <app-image-tile [shrinkImageSize]="true" [imageUrl]="util.getImageSrc(orderData.order.product._id)" [title]="orderData.order.product.name"></app-image-tile>
     <div class="title">
         {{orderData.order.product.name}}
     </div>

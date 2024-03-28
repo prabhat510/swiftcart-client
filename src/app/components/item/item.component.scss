@@ -1,9 +1,26 @@
-.product-metadata, .action-buttons {
-    text-align: center;
+.product-metadata {
+  border-top: 1px solid #ececec;
+  .action-buttons {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+
+    @media (width < 576px) {
+        flex-direction: column;
+        align-items: start;
+    }
+    .price {
+        font-weight: 500;
+      }
+  }
+  .category {
+    font-weight: 200;
+  }
+  .card-title {
+    display: -webkit-box;
+    -webkit-line-clamp: 2; /* Number of lines to show */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
 }
 
-.action-buttons {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-}

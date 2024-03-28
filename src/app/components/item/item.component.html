@@ -1,14 +1,15 @@
 <div class="product-container"  *ngIf="product">
-    <div>
+    <div style="padding-bottom: 20px;">
         <app-image-tile [imageUrl]="util.getImageSrc(product._id)" [title]="product.name"></app-image-tile>
     </div>
     <div class="card-body product-metadata">
-      <h5 class="card-title">{{product.name}}</h5>
-      <p class="card-text">Rs.&nbsp;{{product.price}}</p>
-      <div class="action-buttons">
-        <button type="button" class="btn btn-dark cart-button" [disabled]="addingToCart" (click)="handleClick()">
-            {{isItemAlreadyInCart ? 'Go to Cart': 'Add to Cart'}}
-        </button>
-    </div>
+       <p class="category">{{product.category | titlecase}}</p> 
+        <p class="card-title">{{product.name | titlecase}}</p>
+        <p class="action-buttons">
+            <span class="price">Rs.&nbsp;{{product.price}}</span>
+            <button type="button" class="btn btn-dark cart-button" [disabled]="addingToCart" (click)="handleClick()">
+                {{isItemAlreadyInCart ? 'Go to Cart': 'Add to Cart'}}
+            </button>
+        </p>
     </div>
 </div>
